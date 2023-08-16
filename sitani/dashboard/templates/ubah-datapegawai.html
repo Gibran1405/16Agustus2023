@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-6">
+            <h4>Ubah Data Pegawai</h4>
+            
+            {% for message in messages %}
+                {% if message.tags == 'success' %}
+                    <div class="alert alert-success">{{ message }}</div>
+                {% elif message.tags == 'error' %}
+                    <div class="alert alert-danger">{{ message }}</div>
+                {% endif %}
+            {% endfor %}
+
+            <form action="{% url 'ubah_datapegawai' Nama=profile.NIP %}" method="post" enctype="multipart/form-data">      
+                    {% csrf_token %}
+                    {{ form.as_p }}
+                    <div class="form-group">
+                        <button class="btn btn-danger" type="submit">Simpan</button>
+                        <a href="{% url 'datapegawai' %}" class="btn btn-primary">Kembali</a>
+                    </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

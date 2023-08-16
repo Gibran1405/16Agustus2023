@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-4">
+            <h3>Tambah Golongan</h3>
+            {% if pesan %}
+                <div class="alert alert-success">
+                    {{ pesan }}
+                </div>
+            {% endif %}
+
+            <form action="{% url 'tambah_golongan' %}" method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                {{form.as_p}}
+                <button class="btn btn-danger">Tambah Golongan</button>
+                <a href="{% url 'golongan' %}" class="btn btn-primary">Kembali</a>
+            </form>
+            
+        </div>
+    </div>
+</div>
+
+<br>
+<br>
+
+{% endblock %}

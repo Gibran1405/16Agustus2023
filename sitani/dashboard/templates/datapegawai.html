@@ -1,0 +1,75 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<!-- Page Heading -->
+<h1 class="h3 mb-0 text-gray-800">Data Pegawai</h1>
+<p class="mb-4">Halaman ini digunakan untuk melakukan pengelolaan data Pegawai.</p>
+
+<div class="card shadow mb-4">
+    <div class="card-header py-3">
+        <h6 class="m-0 font-weight-bold text-primary"><a href="{% url 'tambah_datapegawai' %}" class="btn btn-primary">Tambah Profile Pegawai</a></h6>
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+            {% for message in messages %}
+                {% if message %}
+                    <div class="alert alert-success">{{ message }}</div>
+                {% endif %}
+            {% endfor %}
+            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                <thead>
+                    <tr>
+                        <th>NIP</th> 
+                        <th>Nama Pegawai </th>
+                        <th>Jabatan</th> 
+                        <th>Golongan</th> 
+                        <th>Foto Profile</th>
+                        <th>Alamat</th>
+                        <th>Aksi</th> 
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for datapegawai in profile %}
+
+                        <tr>
+                            <td>{{ datapegawai.NIP }}</a></td>
+                            <td>{{ datapegawai.Nama }}</td>
+                            <td>{{ datapegawai.Id_Jabatan }}</td>
+                            <td>{{ datapegawai.Id_Golongan }}</td>
+                            <td>
+                                {% if datapegawai.Foto_Profile %}
+                                    <img src ="{{ datapegawai.Foto_Profile.url }} " img width = 40%></td>
+                                {% endif %}
+                            <td>{{ datapegawai.Alamat }}</td>
+                            <td>
+                                <div class="btn-group">
+                                    <a href="{% url 'ubah_datapegawai' datapegawai.NIP %}" class="btn btn-primary d-inline-block">Edit</a>
+                                    <button data-toggle="modal" data-target="#hapus-{{ datapegawai.NIP }}" class="btn btn-danger d-inline-block">Hapus</button>
+                                </div>
+                            </td>
+                            <div class="modal" id="hapus-{{ datapegawai.NIP }}">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h3 class="modal-title">Hapus</h3>
+                                        </div>
+                                        <div class="modal-body">
+                                            Apakah Anda yakin ingin menghapus <strong>{{ datapegawai.Nama | upper }}</strong>?
+                                        </div>
+                                        <div class="modal-footer">
+                                            <a href="{% url 'hapus_datapegawai' datapegawai.NIP %}" class="btn btn-danger">Hapus</a>
+                                            <button class="btn btn-primary" data-dismiss="modal">Tidak</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </tr>
+                        {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>  
+
+{% endblock %}

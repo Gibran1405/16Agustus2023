@@ -1,0 +1,75 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<!-- Page Heading -->
+<h1 class="h3 mb-0 text-gray-800">Data Bantuan Dari Pemerintah</h1>
+<p class="mb-4">Halaman ini digunakan untuk melakukan pengelolaan data Bantuan Pemerintah.</p>
+
+<div class="card shadow mb-4">
+    <div class="card-header py-3">
+        <h6 class="m-0 font-weight-bold text-primary">
+            <div class="btn-group mr-2">
+                <a href="{% url 'tambah_banpemtan' %}" class="btn btn-primary">Tambah Bantuan Pemerintah</a>
+            </div>
+            <div class="btn-group mr-2">
+                <a href="{% url 'bantuanpemerintah_pdf' %}" class="btn btn-primary">Laporan</a>
+            </div>
+        </h6>
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+            {% for message in messages %}
+                {% if message %}
+                    <div class="alert alert-success">{{ message }}</div>
+                {% endif %}
+            {% endfor %}
+            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                <thead>
+                    <tr>
+                        <th>Nama Bantuan</th>
+                        <th>Jumlah Barang</th>
+                        <th>Satuan</th> 
+                        <th>Tanggal</th> 
+                        <th>Aksi</th> 
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for banpemtan in banpem %}
+                        <tr>
+                            <td>{{ banpemtan.Nama_Barang }}</td>
+                            <td>{{ banpemtan.Jumlah_Barang }}</td>
+                            <td>{{ banpemtan.Satuan }}</td>
+                            <td>{{ banpemtan.Tanggal}}</td>
+                            <td>
+                                <div class="btn-group">
+                                    <a href="{% url 'ubah_banpemtan' banpemtan.Id_Banpem %}" class="btn btn-primary d-inline-block">Edit</a>
+                                    <button data-toggle="modal" data-target="#hapus-{{ banpemtan.Id_Banpem }}" class="btn btn-danger">Hapus</button>
+                                    
+                                </div>
+                            </td>
+                            <div class="modal" id="hapus-{{ banpemtan.Id_Banpem }}">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h3 class="modal-title">Hapus</h3>
+                                        </div>
+                                        <div class="modal-body">
+                                            Apakah Anda yakin ingin menghapus <strong>{{ banpemtan.Nama_Barang | upper }}</strong>?
+                                        </div>
+                                        <div class="modal-footer">
+                                            <a href="{% url 'hapus_banpemtan' banpemtan.Id_Banpem %}" class="btn btn-danger">Hapus</a>
+                                            <button class="btn btn-primary" data-dismiss="modal">Tidak</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>  
+
+{% endblock %}

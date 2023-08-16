@@ -1,0 +1,64 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<!-- Page Heading -->
+<h1 class="h3 mb-0 text-gray-800">Data Golongan</h1>
+<p class="mb-4">Halaman ini digunakan untuk melakukan pengelolaan Data Golongan.</p>
+
+<div class="card shadow mb-4">
+    <div class="card-header py-3">
+        <h6 class="m-0 font-weight-bold text-primary">
+            <a href="{% url 'tambah_golongan' %}" class="btn btn-primary">Tambah Golongan</a>
+        </h6>
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+            {% for message in messages %}
+                {% if message %}
+                    <div class="alert alert-success">{{ message }}</div>
+                {% endif %}
+            {% endfor %}
+            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                <thead>
+                    <tr>
+                        <th>Golongan</th>
+                        <th>Jabatan Fungsional</th>
+                        <th>Aksi</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for golongan in golongans %}
+                            <td>{{ golongan.Golongan }}</a></td>
+                            <td>{{ golongan.Jabatan_Fungsional }}</a></td>
+                            <td>
+                                <div class="btn-group">
+                                    <a href="{% url 'ubah_golongan' golongan.Id_Golongan %}" class="btn btn-primary d-inline-block">Edit</a>
+                                    <button data-toggle="modal" data-target="#hapus-{{ golongan.Id_Golongan }}" class="btn btn-danger d-inline-block">Hapus</button>
+                                </div>
+                            </td>
+                            <div class="modal" id="hapus-{{golongan.Id_Golongan }}">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h3 class="modal-title">Hapus</h3>
+                                        </div>
+                                        <div class="modal-body">
+                                            Apakah Anda yakin ingin menghapus <strong>{{golongan.Jabatan_Fungsional | upper }}</strong>?
+                                        </div>
+                                        <div class="modal-footer">
+                                            <a href="{% url 'hapus_golongan' golongan.Id_Golongan %}" class="btn btn-danger">Hapus</a>
+                                            <button class="btn btn-primary" data-dismiss="modal">Tidak</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

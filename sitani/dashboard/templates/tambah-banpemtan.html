@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-4">
+            <h3>Tambah Bantuan Pemerintah:</h3>
+            {% if pesan %}
+                <div class="alert alert-success">
+                    {{ pesan }}
+                </div>
+            {% endif %}
+
+            <form action="{% url 'tambah_banpemtan' %}" method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="form-group">
+                <div class="form-group">
+                    <label for="id_Nama_Barang">Nama Bantuan</label>
+                    {{ form.Nama_Barang }}
+                </div>
+                <div class="form-group">
+                    <label for="id_Jumlah_Barang">Jumlah Bantuan</label>
+                    {{ form.Jumlah_Barang }}
+                </div>
+                <div class="form-group">
+                    <label for="id_Satuan_Bantuan">Satuan</label>
+                    {{ form.Satuan }}
+                </div>
+                <div class="form-group">
+                    <label for="id_Tanggal_Bantuan">Tanggal</label>
+                    {{ form.Tanggal}}
+                </div>
+                <button class="btn btn-danger">Tambah Bantuan</button>
+                <a href="{% url 'banpemtan' %}" class="btn btn-primary">Kembali</a>
+            </form>
+            
+        </div>
+    </div>
+</div>
+
+<br>
+<br>
+
+{% endblock %}

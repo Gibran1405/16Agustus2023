@@ -1,0 +1,104 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<!-- Page Heading -->
+<h1 class="h3 mb-0 text-gray-800">Data Kelompok Tani</h1>
+<p class="mb-4">Halaman ini digunakan untuk melakukan pengelolaan Data Kelompok Tani.</p>
+
+<div class="card shadow mb-4">
+    <div class="card-header py-3">
+        <h6 class="m-0 font-weight-bold text-primary">
+            <a href="{% url 'tambah_keltan' %}" class="btn btn-primary">Tambah Poktan</a>
+        </h6>
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+            {% for message in messages %}
+                {% if message %}
+                    <div class="alert alert-success">{{ message }}</div>
+                {% endif %}
+            {% endfor %}
+            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                <thead>
+                    <tr>
+                        <th>Nama Poktan</th>
+                        <th>Kecamatan</th>
+                        <th>Desa</th>
+                        <th>Ketua Kelompok Tani</th>
+                        <th>NIK Ketua Kelompok Tani</th>
+                        <th>KTP Ketua Kelompok Tani</th>
+                        <th>Sekretaris Kelompok Tani</th>
+                        <th>Bendahara Kelompok Tani</th>
+                        <th>Pemilik Lahan</th>
+                        <th>Surat Lahan</th>
+                        <th>No Telephone</th>
+                        <th>Komoditas</th>
+                        <th>Score</th>
+                        <th>Luas Areal HA</th>
+                        <th>Jumlah Anggota</th>
+                        <th>Tanggal Pembentukan</th>
+                        <th>Status Poktan</th>
+                        <th>Kelas Poktan</th>
+                        <th>Aksi</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for keltan in kelsitan %}
+                        <tr>
+                            <td>{{ keltan.Nama_Poktan }}</td>
+                            <td>{{ keltan.Kecamatan }}</td>
+                            <td>{{ keltan.Desa }}</td>
+                            <td>{{ keltan.Ketua }}</td>
+                            <td>{{ keltan.NIK_Ketua }}</td>
+                            <td>
+                                {% if keltan.KTP_Ketua %}
+                                    <img src="{{ keltan.KTP_Ketua.url }}" img width= 60%>
+                                {% endif %}
+                            </td>
+                            <td>{{ keltan.Sekretaris }}</td>
+                            <td>{{ keltan.Bendahara }}</td>
+                            <td>{{ keltan.Pemilik_Lahan}}</td>
+                            <td>
+                                {% if keltan.Surat_Lahan %}
+                                    <img src="{{ keltan.Surat_Lahan.url }}"  img width= 60%>
+                                {% endif %}
+                            </td>
+                            <td>{{ keltan.No_Telephone }}</td>
+                            <td>{{ keltan.Komoditas }}</td>
+                            <td>{{ keltan.Score }}</td>
+                            <td>{{ keltan.Luas_Areal_HA }}</td>
+                            <td>{{ keltan.Jumlah_Anggota }}</td>
+                            <td>{{ keltan.Tanggal_Pembentukan }}</td>
+                            <td>{{ keltan.Status_Poktan }}</td>
+                            <td>{{ keltan.Kelas_Poktan }}</td>
+                            <td>
+                                <div class="btn-group">
+                                    <a href="{% url 'ubah_keltan' keltan.Id_Poktan %}" class="btn btn-primary d-inline-block">Edit</a>
+                                    <button data-toggle="modal" data-target="#hapus-{{ keltan.Id_Poktan }}" class="btn btn-danger d-inline-block">Hapus</button>
+                                </div>
+                            </td>
+                            <div class="modal" id="hapus-{{ keltan.Id_Poktan }}">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h3 class="modal-title">Hapus</h3>
+                                        </div>
+                                        <div class="modal-body">
+                                            Apakah Anda yakin ingin menghapus <strong>{{ keltan.Nama_Poktan|upper }}</strong>?
+                                        </div>
+                                        <div class="modal-footer">
+                                            <a href="{% url 'hapus_keltan' keltan.Id_Poktan %}" class="btn btn-danger">Hapus</a>
+                                            <button class="btn btn-primary" data-dismiss="modal">Tidak</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,113 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<!-- Page Heading -->
+<h1 class="h3 mb-0 text-gray-800">Data Usulan Bantuan Kelompok Tani</h1>
+<p class="mb-4">Halaman ini digunakan untuk melakukan pengelolaan data usulan bantuan Kelompok Tani di Pagaden Barat.</p>
+
+<div class="card shadow mb-4">
+    <div class="card-header py-3">
+        <h6 class="m-0 font-weight-bold text-primary">
+            <div class="btn-group mr-2">
+                <a href="{% url 'tambah_bantuan' %}" class="btn btn-primary">Tambah Usulan Bantuan Poktan</a>
+            </div>
+            <div class="btn-group mr-2">
+                <a href="{% url 'bantuan_excel' %}" class="btn btn-primary">Laporan</a>
+            </div>
+        </h6>
+    </div>  
+    <div class="card-body">
+        <div class="table-responsive">
+            {% for message in messages %}
+                {% if message %}
+                    <div class="alert alert-success">{{ message }}</div>
+                {% endif %}
+            {% endfor %}
+            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                <thead>
+                    <tr>
+                        <th>Nama Kelompok Tani</th>
+                        <th>Nama Bantuan</th>
+                        <th>Desa</th>
+                        <th>Kecamatan</th>
+                        <th>Ketua</th>
+                        <th>NIK</th>
+                        <th>No Telephone</th>
+                        <th>Komoditas</th> 
+                        <th>Luas Areal HA</th>
+                        <th>Status Poktan</th>
+                        <th>Kelas Poktan</th>
+                        <th>Jumlah_Anggota</th>
+                        <th>Jumlah Bantuan</th>
+                        <th>Satuan Bantuan</th>
+                        <th>Tanggal Bantuan</th> 
+                        <th>Gambar Lokasi</th> 
+                        <th>Status Pengajuan</th> 
+                        <th>Aksi</th> 
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for bantuan in banpoktan %}
+                        <tr>
+                            <td>{{ bantuan.Id_Poktan }}</td>
+                            <td>{{ bantuan.Id_Banpem }}</td>
+                            <td>{{ bantuan.Desa }}</td>
+                            <td>{{ bantuan.Kecamatan }}</td>
+                            <td>{{ bantuan.Ketua }}</td>
+                            <td>{{ bantuan.NIK_Ketua }}</td>
+                            <td>{{ bantuan.No_Telephone }}</td>
+                            <td>{{ bantuan.Komoditas}}</td>
+                            <td>{{ bantuan.Luas_Areal_HA}}</td>
+                            <td>{{ bantuan.Status_Poktan }}</td>
+                            <td>{{ bantuan.Kelas_Poktan}}</td>
+                            <td>{{ bantuan.Jumlah_Anggota }}</td>
+                            <td>{{ bantuan.Jumlah_Bantuan }}</td>
+                            <td>{{ bantuan.Satuan_Bantuan }}</td>
+                            <td>{{ bantuan.Tanggal_Bantuan }}</td>
+                            <td>
+                                {% if bantuan.Gambar_Lokasi %}
+                                    <img src="{{ bantuan.Gambar_Lokasi.url }}" img width= 60%>
+                                {% endif %}
+                            </td>
+                            <td>  
+                                    {% if bantuan.Status == 'Dapat Bantuan' %}
+                                        <span class="badge badge-success">Dapat Bantuan</span>
+                                    {% elif bantuan.Status == 'Diajukan' %}
+                                        <span class="badge badge-warning">Diajukan</span>
+                                    {% elif bantuan.Status == 'Tidak Dapat' %}
+                                        <span class="badge badge-danger">Tidak Dapat</span>
+                                    {% endif %}
+                            </td>
+                            <td>
+                                <div class="btn-group">
+                                    <a href="{% url 'ubah_bantuan' bantuan.Id_Bantuan %}" class="btn btn-primary d-inline-block">Edit</a>
+                                    <button data-toggle="modal" data-target="#hapus-{{ bantuan.Id_Bantuan }}" class="btn btn-danger">Hapus</button>
+                                    
+                                </div>
+                            </td>
+                            <div class="modal" id="hapus-{{ bantuan.Id_Bantuan }}">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h3 class="modal-title">Hapus</h3>
+                                        </div>
+                                        <div class="modal-body">
+                                            Apakah Anda yakin ingin menghapus <strong>{{ bantuan.Id_Poktan| upper }}</strong>?
+                                        </div>
+                                        <div class="modal-footer">
+                                            <a href="{% url 'hapus_bantuan' bantuan.Id_Bantuan %}" class="btn btn-danger">Hapus</a>
+                                            <button class="btn btn-primary" data-dismiss="modal">Tidak</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>  
+
+{% endblock %}

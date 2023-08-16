@@ -1,0 +1,141 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Login Admin</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
+
+    <link rel="stylesheet" href="{% static 'css1/style.css' %}">
+    <style>
+    body {
+        background-image: url('/static/images/bg-login.png');
+        background-size: cover;
+        background-repeat: no-repeat;
+        font-family: 'Lato', sans-serif;
+    }
+
+    .ftco-section {
+        position: relative;
+        background-color: rgba(0, 0, 0, 0.6);
+        padding: 80px 30px;
+        height: 150vh;
+        display: flex;
+        align-items: center;
+    }
+
+    .heading-section {
+        color: #fff;
+        margin-bottom: 40px;
+    }
+
+    .form-group label {
+        color: #fff;
+    }
+
+    .form-control {
+        background-color: rgba(255, 255, 255, 0.2);
+        color: #fff;
+    }
+
+    .submit {
+        background-color: #007bff;
+        border-color: #007bff;
+    }
+
+    .submit:hover {
+        background-color: #0056b3;
+        border-color: #0056b3;
+    }
+
+    .text-left a {
+        color: #fff;
+    }
+
+    .alert {
+        position: relative;
+        z-index: 9999;
+    }
+    </style>
+</head>
+<body>
+<section class="ftco-section">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-6 text-center mb-5">
+                <h2 class="heading-section">Login Admin UPTD Pertanian Pagaden Barat</h2>
+            </div>
+        </div>
+        {% for message in messages %}
+        <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+            {{ message }}
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    {% endfor %}
+        <div class="row justify-content-center">
+            <div class="col-md-6 col-lg-4">
+                <div class="login-wrap p-0">
+                    <form method="POST" class="signin-form">
+                        {% csrf_token %}
+                        <div class="form-group">
+                            <label for="id_password">Username</label>
+                            <input type="text" name="username" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="id_password">Password</label>
+                            <div class="input-group">
+                              <input type="password" class="form-control" id="id_password" name="password">
+                              <div class="input-group-append">
+                                <button class="btn btn-outline-secondary" type="button" id="show-password">
+                                    <i class="fas fa-eye" id="eye-icon"></i>
+                                </button>
+                              </div>
+                            </div>
+                          </div>     
+                        <div class="form-group">
+                            <button type="submit" class="form-control btn btn-primary submit px-3">Masuk</button>
+                        </div>
+                    </form>
+                    <div class="form-group d-md-flex">
+                        <div class="w-50 text-md-left">
+                            <a href="/lupasandi/" style="color: #fff">Forgot Password</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script src="{% static 'js1/jquery.min.js' %}"></script>
+<script src="{% static 'js1/popper.js' %}"></script>
+<script src="{% static 'js1/bootstrap.min.js' %}"></script>
+<script src="{% static 'js1/main.js' %}"></script>
+<script>
+    document.getElementById("show-password").addEventListener("click", function() {
+      var passwordInput = document.getElementById("id_password");
+      var eyeIcon = document.getElementById("eye-icon");
+      if (passwordInput.type === "password") {
+        passwordInput.type = "text";
+        eyeIcon.classList.remove("fa-eye");
+        eyeIcon.classList.add("fa-eye-slash");
+      } else {
+        passwordInput.type = "password";
+        eyeIcon.classList.remove("fa-eye-slash");
+        eyeIcon.classList.add("fa-eye");
+      }
+    });
+  </script>
+<script>
+    if (window.history.replaceState) {
+        window.history.replaceState(null, null, window.location.href);
+      }
+      
+</script>
+</body>
+</html>

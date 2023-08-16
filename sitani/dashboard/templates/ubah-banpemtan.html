@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-6">
+            <h4>Ubah Data Bantuan Dari Pemerintah</h4>
+            
+            {% for message in messages %}
+                {% if message.tags == 'success' %}
+                    <div class="alert alert-success">{{ message }}</div>
+                {% elif message.tags == 'error' %}
+                    <div class="alert alert-danger">{{ message }}</div>
+                {% endif %}
+            {% endfor %}
+
+            <form action="{% url 'ubah_banpemtan' banpem.Id_Banpem %}" method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="form-group">
+                    <label for="id_Nama_Barang">Nama Barang</label>
+                    {{ form.Nama_Barang }}
+                </div>
+                <div class="form-group">
+                    <label for="id_Jumlah_Barang"> Jumlah Barang</label>
+                    {{ form.Jumlah_Barang }}
+                </div>
+                <div class="form-group">
+                    <label for="id_Satuan">Satuan</label>
+                    {{ form.Satuan }}
+                </div>
+                <div class="form-group">
+                    <label for="id_Tanggal">Tanggal</label>
+                    {{ form.Tanggal }}
+                </div>           
+                <button class="btn btn-danger">Simpan</button>
+                <a href="{% url 'banpemtan' %}"  class="btn btn-primary">Kembali</a>
+            </form>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-4">
+            <h3>Tambah Usulan Bantuan untuk Kelompok Tani:</h3>
+            {% if messages %}
+                <div class="alert alert-success">
+                    {% for message in messages %}
+                        {{ message }}
+                    {% endfor %}
+                </div>
+            {% endif %}
+
+            <form action="{% url 'tambah_bantuan' %}" method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+
+                <div class="form-group">
+                    <label for="id_Id_Poktan">Nama Kelompok Tani</label>
+                    {{ form.Id_Poktan }}
+                </div>
+                <div class="form-group">
+                    <label for="id_Id_Banpem">Nama Bantuan Dari Pemerintah</label>
+                    {{ form.Id_Banpem }}
+                </div>
+                <div class="form-group">
+                    <label for="id_Jumlah_Bantuan">Jumlah Bantuan</label>
+                    {{ form.Jumlah_Bantuan }}
+                </div>
+                <div class="form-group">
+                    <label for="id_Satuan_Bantuan">Satuan</label>
+                    {{ form.Satuan_Bantuan }}
+                </div>
+                <div class="form-group">
+                    <label for="id_Tanggal_Bantuan">Tanggal</label>
+                    {{ form.Tanggal_Bantuan }}
+                </div>
+                <div class="form-group">
+                    <label for="id_Gambar_Lokasi">Gambar Lokasi</label>
+                    {{ form.Gambar_Lokasi }}
+                </div>
+                <div class="form-group">
+                    <label for="id_Status">Status Pengajuan</label>
+                    {{ form.Status }}
+                </div>
+                <button class="btn btn-danger">Tambah Bantuan</button>
+                <a href="{% url 'bantuan' %}" class="btn btn-primary">Kembali</a>
+            </form>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

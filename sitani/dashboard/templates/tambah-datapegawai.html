@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<div class="container">
+    <div class="row">
+        <div class ="col-md-4">
+        <h3>Tambah Data Pegawai :</h3>
+      {% if pesan %}
+        <div class="alert alert-success">
+            {{pesan}}
+        </div>
+        {% endif %}
+
+        <form method="post" action="{% url 'tambah_datapegawai' %}" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="id_NIP">NIP</label>
+                {{ form.NIP }}
+            </div>
+            <div class="form-group">
+                <label for="id_Nama">Nama Pegawai UPTD Pertanian Pagaden Barat</label>
+                {{ form.Nama }}
+            </div>
+            <div class="form-group">
+                <label for="id_Foto_profile">Foto Profile</label>
+                {{form.Foto_Profile  }}
+            </div>
+            <div class="form-group">
+                <label for="id_Id_Jabatan">Jabatan</label>
+                {{ form.Id_Jabatan }}
+            </div>
+            <div class="form-group">
+                <label for="id_Id_Golongan">Golongan</label>
+                {{ form.Id_Golongan }}
+            </div>
+            <div class="form-group">
+                <label for="id_Alamat">Alamat</label>
+                {{ form.Alamat }}
+            </div>
+            <button class="btn btn-danger">Tambah Data Pegawai</button>
+            <a href="{% url 'datapegawai' %}" class="btn btn-priamry">Kembali</a>
+        </form>
+    </div>
+   </div> 
+</div>
+
+<br>
+<br>
+
+{% endblock %}

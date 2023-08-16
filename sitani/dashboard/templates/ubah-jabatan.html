@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-6">
+            <h4>Ubah Jabatan</h4>
+            
+            {% for message in messages %}
+                {% if message.tags == 'success' %}
+                    <div class="alert alert-success">{{ message }}</div>
+                {% elif message.tags == 'error' %}
+                    <div class="alert alert-danger">{{ message }}</div>
+                {% endif %}
+            {% endfor %}
+
+            <form action="{% url 'ubah_jabatan' jabatans.Id_Jabatan %}" method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                {{form.as_p}}
+                <button class="btn btn-danger">Simpan</button>
+                <a href="{% url 'jabatan' %}" class="btn btn-primary">Kembali</a>
+            </form>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

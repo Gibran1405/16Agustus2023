@@ -1,0 +1,177 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Website UPTD Pertanian Pagaden Barat</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    
+    <link href="https://fonts.googleapis.com/css?family=Poppins:200,300,400,500,600,700,800,900&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="{% static 'https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css' %}">
+ 
+    <link rel="stylesheet" href="{% static 'css/animate.css' %}">
+    
+    <link rel="stylesheet" href="{% static 'css/owl.carousel.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/owl.theme.default.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/magnific-popup.css' %}">
+
+    <link rel="stylesheet" href="{% static 'css/bootstrap-datepicker.css' %}">
+    <link rel="stylesheet" href="{% static 'css/jquery.timepicker.css' %}">
+
+    <link rel="stylesheet" href="{% static 'css/flaticon.css' %}">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
+    <div class="container">
+        <img src="/static/images/project8.png" style="float:left;width:44px;height:44px;">  
+        <a class="navbar-brand" href="/home">SITANI <span>PAGADEN BARAT<i class="fa fa-leaf"></i></span></a>
+        <img src="/static/images/project.7.png" style="float:right;width:42px;height:42px;">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="fa fa-bars"></span> Menu
+        </button>
+        <div class="collapse navbar-collapse" id="ftco-nav">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item"><a href="/home/" class="nav-link">Beranda</a></li>
+                <li class="nav-item"><a href="/toko/" class="nav-link">Toko Pertanian</a></li>
+                <li class="nav-item active"><a href="/blog/" class="nav-link">Berita Pertanian</a></li>
+                <li class="nav-item"><a href="/struktur/" class="nav-link">Profile Pegawai UPTD</a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
+<!-- END nav -->
+
+<section class="hero-wrap hero-wrap-2" style="background-image: url('/static/images/bg_3.PNG');" data-stellar-background-ratio="0.5">
+    <div class="overlay"></div>
+    <div class="container">
+        <div class="row no-gutters slider-text align-items-end">
+            <div class="col-md-9 ftco-animate pb-5">
+                <p class="breadcrumbs mb-2"><span class="mr-2"><a href="/home">Beranda<i class="ion-ios-arrow-forward"></i></a></span> <span><i class="ion-ios-arrow-forward"></i></span></p>
+                <h1 class="mb-0 bread">BERITA PERTANIAN</h1>
+            </div>
+        </div>
+    </div>
+</section>
+<section class="ftco-section">
+    {% for beritapertanian in bertan %}
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-8 ftco-animate">
+          <div class="blog-entry align-self-stretch">
+            <a href="{% url 'blog' %}" class="block-20 rounded img-2">
+              {% if beritapertanian.Foto_Berita %}
+              <img src="{{ beritapertanian.Foto_Berita.url }}" img width=100%>
+              {% endif %}
+            </a>
+            <div class="text mt-3">
+              <div class="meta mb-2">
+                <div>{{ beritapertanian.Jam_Update | time:"H:i" }}</div>
+                <div>{{ beritapertanian.Tanggal_Update }}</div>
+              </div>
+              <h3 class="heading"><a href="{% url 'blog' %}">{{ beritapertanian.Judul_Berita }}</a></h3>
+              <p style="font-weight: bold;">{{ beritapertanian.Penulis }}</p>
+              <p>{{ beritapertanian.Isi_Berita|truncatewords:30 }}</p>
+              <p><a href="{% url 'blogsingle' Id_Berita=beritapertanian.Id_Berita %}" class="btn btn-primary">Baca Lebih Lanjut</a></p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+  </section>
+  
+  <footer class="footer">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4 col-lg-4">
+                <div class="row">
+                    <div class="col-md-12 col-lg-8 mb-4">
+                        <h2 class="footer-heading"><a href="{% url 'home' %}" class="logo">SITANI <span>PAGADEN BARAT</span></a></h2>
+                        <p style="text-align: justify;">SITANI PAGADEN BARAT adalah sistem yang dibuat untuk UPTD Pertanian Pagaden Barat agar lebih mudah dalam pengelolaan data dan laporan</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-8 col-lg-8">
+                <div class="row">
+                    <div class="col-md-4 mb-4">
+                        <h2 class="footer-heading">Tentang</h2>
+                        <ul class="list-unstyled">
+                            <li><a href="{% url 'struktur' %}" class="py-1 d-block">Profile Pegawai</a></li>
+                            <li><a href="{% url 'toko' %}" class="py-1 d-block">Toko</a></li>
+                            <li><a href="{% url 'blog' %}" class="py-1 d-block">Berita</a></li>
+                        </ul>
+                    </div>
+                    <div class="col-md-4 mb-4">
+                        <h2 class="footer-heading">Sosial Media</h2>
+                        <ul class="list-unstyled">
+                            <li><a href="#" class="py-1 d-block">Facebook</a></li>
+                            <li><a href="#" class="py-1 d-block">Twitter</a></li>
+                            <li><a href="#" class="py-1 d-block">Instagram</a></li>
+                            <li><a href="#" class="py-1 d-block">Google</a></li>
+                        </ul>
+                    </div>
+                    <div class="col-md-4 mb-4">
+                        <h2 class="footer-heading"><a href="https://www.google.com/maps/search/?api=1&query=GP2Q%2BW2M%2C+Balingbing%2C+Pagaden+Barat%2C+Balingbing%2C+Kec.+Subang%2C+Kabupaten+Subang%2C+Jawa+Barat+41252" class="logo">Alamat <span> UPTD Pertanian Pagaden Barat</span></a></h2>
+                        <p style="text-align: justify;">GP2Q+W2M, Balingbing, Pagaden Barat, Balingbing, Kec. Subang, Kabupaten Subang, Jawa Barat 41252</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="container my-auto">
+            <div class="copyright text-center my-auto">
+                <span>Copyright &copy; SITANI 2023</span>
+            </div>
+        </div>
+    </div>
+</footer>
+
+
+<!-- loader -->
+<div id="ftco-loader" class="show fullscreen"><svg class="circular" width="48px" height="48px"><circle class="path-bg" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke="#eeeeee"/><circle class="path" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke-miterlimit="10" stroke="#F96D00"/></svg></div>
+<script src="{% static 'js/jquery.min.js' %}"></script>
+<script src="{% static 'js/jquery-migrate-3.0.1.min.js' %}"></script>
+<script src="{% static 'js/popper.min.js' %}"></script>
+<script src="{% static 'js/bootstrap.min.js' %}"></script>
+<script src="{% static 'js/jquery.easing.1.3.js' %}"></script>
+<script src="{% static 'js/jquery.waypoints.min.js' %}"></script>
+<script src="{% static 'js/jquery.stellar.min.js' %}"></script>
+<script src="{% static 'js/jquery.animateNumber.min.js' %}"></script>
+<script src="{% static 'js/bootstrap-datepicker.js' %}"></script>
+<script src="{% static 'js/jquery.timepicker.min.js' %}"></script>
+<script src="{% static 'js/owl.carousel.min.js' %}"></script>
+<script src="{% static 'js/jquery.magnific-popup.min.js' %}"></script>
+<script src="{% static 'js/scrollax.min.js' %}"></script>
+<script src="{% static 'js/google-map.js' %}"></script>
+<script src="{% static 'js/main.js' %}"></script>
+<script>
+  $(document).ready(function() {
+      $(".baca-lebih-btn").click(function() {
+          var target = $(this).data("target");
+          $(target).slideDown();
+          $(this).hide();
+          $(this).next(".baca-sedikit-btn").show();
+      });
+
+      $(".baca-sedikit-btn").click(function() {
+          var target = $(this).prev().data("target");
+          $(target).slideUp();
+          $(this).hide();
+          $(this).prev(".baca-lebih-btn").show();
+      });
+  });
+  
+  // Tambahkan fungsi untuk mengatur ulang artikel lain ke keadaan awal
+  function resetOtherArticles() {
+    $(".hidden-isi-berita").slideUp();
+    $(".baca-sedikit-btn").hide();
+    $(".baca-lebih-btn").show();
+  }
+</script>
+
+  
+
+</body>
+</html>

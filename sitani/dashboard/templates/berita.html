@@ -1,0 +1,77 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<!-- Page Heading -->
+<h1 class="h3 mb-0 text-gray-800">Data Berita</h1>
+<p class="mb-4">Halaman ini digunakan untuk melakukan pengelolaan data berita.</p>
+
+<div class="card shadow mb-4">
+    <div class="card-header py-3">
+        <h6 class="m-0 font-weight-bold text-primary">
+            <a href="{% url 'tambah_berita' %}" class="btn btn-primary">Tambah Berita</a>
+        </h6>
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+            {% for message in messages %}
+                {% if message %}
+                    <div class="alert alert-success">{{ message }}</div>
+                {% endif %}
+            {% endfor %}
+            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                <thead>
+                    <tr>
+                        <th>Penulis</th>
+                        <th>Judul Berita</th>
+                        <th>Foto Berita</th>
+                        <th>Isi Berita</th>
+                        <th>Jam Update</th>
+                        <th>Tanggal Update</th>
+                        <th>Aksi</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for beritapertanian in bertan %}
+                        <tr>
+                            <td>{{ beritapertanian.Penulis }}</td>
+                            <td>{{ beritapertanian.Judul_Berita }}</td>
+                            <td>
+                                {% if beritapertanian.Foto_Berita %}
+                                    <img src="{{ beritapertanian.Foto_Berita.url }}" img width= 40%>
+                                {% endif %}
+                            </td>
+                            <td>{{ beritapertanian.Isi_Berita|truncatewords:30 }}</td>
+                            <td>{{ beritapertanian.Jam_Update  | time:"H:i"}}</td>
+                            <td>{{ beritapertanian.Tanggal_Update }}</td>
+                            <td>
+                                <div class="btn-group">
+                                    <a href="{% url 'ubah_berita' beritapertanian.Id_Berita %}" class="btn btn-primary d-inline-block">Edit</a>
+                                    <button data-toggle="modal" data-target="#hapus-{{ beritapertanian.Id_Berita }}" class="btn btn-danger d-inline-block">Hapus</button>
+                                </div>
+                            </td>
+                            <div class="modal" id="hapus-{{ beritapertanian.Id_Berita }}">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h3 class="modal-title">Hapus</h3>
+                                        </div>
+                                        <div class="modal-body">
+                                            Apakah Anda yakin ingin menghapus <strong>{{ beritapertanian.Id_Berita | upper }}</strong>?
+                                        </div>
+                                        <div class="modal-footer">
+                                            <a href="{% url 'hapus_berita' beritapertanian.Id_Berita %}" class="btn btn-danger">Hapus</a>
+                                            <button class="btn btn-primary" data-dismiss="modal">Tidak</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

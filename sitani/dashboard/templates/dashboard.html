@@ -1,0 +1,149 @@
+{% extends 'base.html' %}
+
+{% block content %}
+{% load static %}
+
+<div class="container-fluid">
+
+  <!-- Page Heading -->
+  <div class="d-sm-flex align-items-center justify-content-between mb-4">
+    <h1 class="h3 mb-0 text-gray-800">Dashboard</h1>
+  </div>
+
+  <!-- Content Row -->
+  <div class="row">
+    <!-- Earnings (Monthly) Card Example -->
+    <div class="col-xl-3 col-md-6 mb-4">
+      <div class="card border-left-primary shadow h-100 py-2">
+        <div class="card-body">
+          <div class="row no-gutters align-items-center">
+            <div class="col mr-2">
+              <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Data Toko</div>
+              <div class="text-xs font-weight-bold text-gray-800">{{ tokper_count }}</div>
+            </div>
+            <div class="col-auto">  
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Earnings (Monthly) Card Example -->
+    <div class="col-xl-3 col-md-6 mb-4">
+      <div class="card border-left-success shadow h-100 py-2">
+        <div class="card-body">
+          <div class="row no-gutters align-items-center">
+            <div class="col mr-2">
+              <div class="text-xs font-weight-bold text-success text-uppercase mb-1">Data Kelompok Tani</div>
+              <div class=" text-xs font-weight-bold text-gray-800">{{ kelsitan_count }}</div>
+            </div>
+            <div class="col-auto">
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Earnings (Monthly) Card Example -->
+    <div class="col-xl-3 col-md-6 mb-4">
+      <div class="card border-left-info shadow h-100 py-2">
+        <div class="card-body">
+          <div class="row no-gutters align-items-center">
+            <div class="col mr-2">
+              <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Data Berita</div>
+              <div class=" text-xs font-weight-bold text-gray-800">{{ bertan_count }}</div>
+              <div class="row no-gutters align-items-center">
+                <div class="col-auto">
+                </div>
+                <div class="col">
+                </div>
+              </div>
+            </div>
+            <div class="col-auto">
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Pending Requests Card Example -->
+    <div class="col-xl-3 col-md-6 mb-4">
+      <div class="card border-left-warning shadow h-100 py-2">
+        <div class="card-body">
+          <div class="row no-gutters align-items-center">
+            <div class="col mr-2">
+              <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">Data Bantuan</div>
+              <div class="text-xs mb-0 font-weight-bold text-gray-800">{{banpoktan_count}}</div>
+            </div>
+            <div class="col-auto">
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Table Example -->
+  <div class="row">
+    <div class="col">
+      <div class="table-responsive">
+        <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+          <thead>
+            <tr>
+                <th>Nama Poktan</th>
+                <th>Kecamatan</th>
+                <th>Desa</th>
+                <th>Ketua Kelompok Tani</th>
+                <th>NIK Ketua Kelompok Tani</th>
+                <th>KTP Ketua Kelompok Tani</th>
+                <th>Sekretaris Kelompok Tani</th>
+                <th>Bendahara Kelompok Tani</th>
+                <th>Pemilik Lahan</th>
+                <th>Surat Lahan</th>
+                <th>No Telephone</th>
+                <th>Komoditas</th>
+                <th>Luas Areal HA</th>
+                <th>Jumlah Anggota</th>
+                <th>Tanggal Pembentukan</th>
+                <th>Status Poktan</th>
+                <th>Kelas Poktan</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for keltan in kelsitan %}
+                <tr>
+                    <td>{{ keltan.Nama_Poktan }}</td>
+                    <td>{{ keltan.Kecamatan }}</td>
+                    <td>{{ keltan.Desa }}</td>
+                    <td>{{ keltan.Ketua }}</td>
+                    <td>{{ keltan.NIK_Ketua }}</td>
+                    <td>
+                        {% if keltan.KTP_Ketua %}
+                            <img src="{{ keltan.KTP_Ketua.url }}" img width= 60%>
+                        {% endif %}
+                    </td>
+                    <td>{{ keltan.Sekretaris }}</td>
+                    <td>{{ keltan.Bendahara }}</td>
+                    <td>{{ keltan.Pemilik_Lahan}}</td>
+                    <td>
+                        {% if keltan.Surat_Lahan %}
+                            <img src="{{ keltan.Surat_Lahan.url }}"  img width= 60%>
+                        {% endif %}
+                    </td>
+                    <td>{{ keltan.No_Telephone }}</td>
+                    <td>{{ keltan.Komoditas }}</td>
+                    <td>{{ keltan.Luas_Areal_HA }}</td>
+                    <td>{{ keltan.Jumlah_Anggota }}</td>
+                    <td>{{ keltan.Tanggal_Pembentukan }}</td>
+                    <td>{{ keltan.Status_Poktan }}</td>
+                    <td>{{ keltan.Kelas_Poktan }}</td>
+                    <td>
+                  </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+{% endblock %}
